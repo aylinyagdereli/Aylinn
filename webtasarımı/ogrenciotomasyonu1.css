@@ -1,0 +1,19 @@
+#jsonPanel {
+  display: none;
+  background: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+button {
+  margin: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#liste li {
+  margin: 5px 0;
+}
