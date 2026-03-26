@@ -1,0 +1,107 @@
+:root {
+  --primary-color: #4f46e5;
+  --bg-color: #f3f4f6;
+  --text-main: #1f2937;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  margin: 0;
+}
+
+.container {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 600px;
+}
+
+h1 { 
+  text-align: center; 
+  font-size: 1.75rem; 
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+input {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.btn-submit { background: var(--primary-color); color: white; }
+.btn-fetch { background: #10b981; color: white; }
+.btn-debug { background: #6b7280; color: white; }
+
+button:hover { 
+  opacity: 0.9; 
+  transform: translateY(-1px); 
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+th { 
+  background-color: #f9fafb; 
+  font-weight: 600;
+  color: #6b7280;
+}
+
+#dataPreview {
+  background: #1a1b1e;
+  color: #a5d6ff;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  display: none;
+  margin-top: 25px;
+  overflow-x: auto;
+}

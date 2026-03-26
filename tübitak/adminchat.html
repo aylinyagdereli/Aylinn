@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Girişi | İstifa Analiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    /* Ana siteyle uyumlu gradient */
+    background: linear-gradient(135deg, #1f2a38, #34495e); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.login-container {
+    background: #fff;
+    color: #2c3e50;
+    padding: 50px 40px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+    text-align: center;
+    position: relative;
+}
+
+.login-container h1 {
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 28px;
+    color: #1f2a38;
+}
+
+.login-container p {
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: #bdc3c7;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.login-container input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52,152,219,0.2);
+}
+
+.login-container button {
+    width: 100%;
+    padding: 14px;
+    background: #1f2a38; /* Ana site koyu rengi */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.login-container button:hover {
+    background: #3498db;
+    transform: translateY(-2px);
+}
+
+.error-message {
+    background: #fdf0f0;
+    color: #e74c3c;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    display: none;
+    border: 1px solid #facccc;
+}
+
+.back-to-site {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #3498db;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <h1>Yönetici Girişi</h1>
+    <p>İstifa Analiz Veri Yönetimi</p>
+    
+    <div class="error-message" id="error">
+        <i class="fas fa-exclamation-circle"></i> Kullanıcı adı veya şifre yanlış!
+    </div>
+
+    <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="username" placeholder="Kullanıcı Adı">
+    </div>
+
+    <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" placeholder="Şifre">
+    </div>
+
+    <button id="loginBtn">Güvenli Giriş Yap</button>
+    
+    <a href="anasite.html" class="back-to-site"><i class="fas fa-arrow-left"></i> Ana Sayfaya Dön</a>
+</div>
+
+<footer>&copy; 2026 İstifa Analiz Platformu</footer>
+
+<script>
+const loginBtn = document.getElementById("loginBtn");
+const userInp = document.getElementById("username");
+const passInp = document.getElementById("password");
+const errorMsg = document.getElementById("error");
+
+function checkLogin() {
+    const user = userInp.value.trim();
+    const pass = passInp.value.trim();
+
+    // Senin belirlediğin giriş bilgileri
+    if(user === "admin" && pass === "1234") {
+        localStorage.setItem("adminLoggedIn", "true");
+        // Hedef dosyayı senin belirttiğin isimle güncelledim
+        window.location.href = "adminpaneli.html"; 
+    } else {
+        errorMsg.style.display = "block";
+        // Yanlış girişte şifre alanını temizle
+        passInp.value = "";
+    }
+}
+
+// Butona tıklama
+loginBtn.addEventListener("click", checkLogin);
+
+// "Enter" tuşu desteği
+document.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        checkLogin();
+    }
+});
+</script>
+
+</body>
+</html>

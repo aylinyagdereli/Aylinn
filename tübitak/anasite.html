@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İstifa Analiz Platformu</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, #1f2a38, #34495e);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  font-size: 48px;
+  margin: 0;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+header p {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+/* NAV */
+nav {
+  background: #1f2a38;
+  padding: 15px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+nav a {
+  color: white;
+  margin: 0 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #3498db;
+}
+
+/* SECTIONS */
+section {
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* KARTLAR */
+.cards-container {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 260px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  border-bottom: 4px solid transparent;
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+  border-bottom: 4px solid #3498db;
+}
+
+.stat-number {
+  font-size: 42px;
+  font-weight: bold;
+  display: block;
+  margin: 15px 0;
+  color: #1f2a38;
+}
+
+/* GRAFİK KUTULARI */
+#chart-container, .chart-box-large {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  margin: 20px auto;
+}
+
+/* İLETİŞİM FORMU */
+.contact-form {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  display: inline-block;
+  width: 100%;
+  max-width: 600px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 12px 30px;
+  background: #1f2a38;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #34495e;
+}
+
+footer {
+  background: #1f2a38;
+  color: white;
+  padding: 30px;
+  text-align: center;
+  margin-top: 50px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>İstifa Analiz Platformu</h1>
+  <p>Çalışanların istifa nedenlerini analiz eden veri platformu</p>
+</header>
+
+<nav>
+  <a href="#anasayfa">Ana Sayfa</a>
+  <a href="#istatistik">İstatistik</a>
+  <a href="#sosyal-analiz">Sosyal Medya</a>
+  <a href="#iletisim">Bize Ulaşın</a>
+  <a href="adminchat.html" style="color: #3498db; border: 1px solid #3498db; padding: 5px 15px; border-radius: 5px;">Admin Girişi</a>
+</nav>
+
+<section id="anasayfa">
+  <h2>Platform Hakkında</h2>
+  <p>Bu platform çalışanların istifa nedenlerini analiz ederek iş dünyasına veri sağlamayı amaçlar.</p>
+
+  <div class="cards-container">
+    <div class="stat-card">
+      <h3>📊 Kişisel</h3>
+      <span id="kisisel" class="stat-number">0</span>
+      <p>Ailevi veya bireysel sebepler</p>
+    </div>
+    <div class="stat-card">
+      <h3>💼 Örgütsel</h3>
+      <span id="orgutsel" class="stat-number">0</span>
+      <p>Kurumsal sorunlar</p>
+    </div>
+    <div class="stat-card">
+      <h3>🧑‍💼 Yönetsel</h3>
+      <span id="yonetsel" class="stat-number">0</span>
+      <p>Yönetim kaynaklı problemler</p>
+    </div>
+  </div>
+</section>
+
+<section id="istatistik" style="background: #fafafa; border-radius: 20px;">
+  <h2>İstifa İstatistikleri (Genel)</h2>
+  <div id="chart-container" style="max-width: 400px;">
+    <canvas id="chart"></canvas>
+  </div>
+</section>
+
+<section id="sosyal-analiz">
+  <h2>Sosyal Medya Analiz Sonuçları</h2>
+  <p>Twitter (X) üzerinden toplanan tweetlerin yapay zeka ile analiz edilmiş dağılımı.</p>
+  <div class="chart-box-large" style="max-width: 800px;">
+    <canvas id="twitterChart"></canvas>
+  </div>
+</section>
+
+<section id="iletisim">
+  <h2>Bize Ulaşın</h2>
+  <div class="contact-form">
+    <input type="text" id="ad" placeholder="Adınız">
+    <input type="email" id="email" placeholder="Email Adresiniz">
+    <textarea id="mesaj" rows="5" placeholder="İstifa nedeniniz veya mesajınız..."></textarea>
+    <button onclick="mesajGonder()">Gönder</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 İstifa Analiz Platformu</p>
+</footer>
+
+<script>
+// Veri Yönetimi
+let reasons = JSON.parse(localStorage.getItem("reasons")) || [];
+let mesajlar = JSON.parse(localStorage.getItem("mesajlar")) || [];
+
+// Dashboard Sayı Animasyonu
+function animateValue(id, start, end, duration) {
+  let obj = document.getElementById(id);
+  if (start === end) {
+      obj.innerText = end;
+      return;
+  }
+  let range = end - start;
+  let current = start;
+  let increment = end > start ? 1 : -1;
+  let stepTime = Math.max(Math.abs(Math.floor(duration / (range || 1))), 10);
+
+  let timer = setInterval(function() {
+    current += increment;
+    obj.innerText = current;
+    if (current == end) clearInterval(timer);
+  }, stepTime);
+}
+
+// Grafik 1: Genel Dağılım (Doughnut)
+function renderChart() {
+  let k = reasons.filter(r => r.kategori == "Kişisel").length;
+  let o = reasons.filter(r => r.kategori == "Örgütsel").length;
+  let y = reasons.filter(r => r.kategori == "Yönetsel").length;
+
+  animateValue("kisisel", 0, k, 1000);
+  animateValue("orgutsel", 0, o, 1000);
+  animateValue("yonetsel", 0, y, 1000);
+
+  const ctx = document.getElementById("chart");
+  if (window.myChart) window.myChart.destroy();
+  
+  window.myChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Kişisel", "Örgütsel", "Yönetsel"],
+      datasets: [{
+        data: [k, o, y],
+        backgroundColor: ["#3498db", "#e67e22", "#2ecc71"],
+        hoverOffset: 15
+      }]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+  });
+}
+
+// Grafik 2: Twitter Analizi (Yatay Bar)
+function twitterAnalizGrafigi() {
+  const ctx = document.getElementById("twitterChart").getContext('2d');
+  const dataValues = [22, 14, 5, 3, 3, 2];
+  const labels = ["Diğer/Belirsiz", "Ekonomik", "Çalışma Koşulları", "Sağlık/Yorgunluk", "Yönetimsel", "İş Arkadaşları"];
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Tweet Sayısı',
+        data: dataValues,
+        backgroundColor: ['#443983', '#31688e', '#21918c', '#35b779', '#8fd744', '#fde725'],
+        borderRadius: 8
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: { x: { beginAtZero: true }, y: { grid: { display: false } } }
+    }
+  });
+}
+
+function mesajGonder() {
+  let ad = document.getElementById("ad").value;
+  let email = document.getElementById("email").value;
+  let mesaj = document.getElementById("mesaj").value;
+  
+  if (!ad || !email || !mesaj) {
+    alert("Lütfen tüm alanları doldurun!");
+    return;
+  }
+  
+  mesajlar.push({ ad, email, mesaj, tarih: new Date().toLocaleString() });
+  localStorage.setItem("mesajlar", JSON.stringify(mesajlar));
+  alert("Teşekkürler! Mesajınız analiz edilmek üzere kaydedildi.");
+  
+  // Formu temizle
+  document.getElementById("ad").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("mesaj").value = "";
+}
+
+// Sayfa yüklendiğinde tüm grafikleri başlat
+window.onload = function() {
+  renderChart();
+  twitterAnalizGrafigi();
+};
+</script>
+</body>
+</html>
