@@ -19,11 +19,11 @@ addBtn.addEventListener("click", () => {
 
   if (nameInput.value.trim() && ageInput.value) {
     const newStudent = new Student(
-      nameInput.value,
+      nameInput.value, 
       parseInt(ageInput.value)
     );
-
-    students.push(newStudent);
+    
+    students.push(newStudent); 
     clearForm();
     updateDisplay();
   }
@@ -31,13 +31,11 @@ addBtn.addEventListener("click", () => {
 
 const updateDisplay = () => {
   tableBody.innerHTML = "";
-
+  
   students.forEach((student) => {
-
     const { name, age, id } = student;
-
     const status = age >= 18 ? "Yetişkin" : "Öğrenci";
-
+    
     const row = `
       <tr>
         <td>${name.toUpperCase()}</td>
@@ -47,7 +45,6 @@ const updateDisplay = () => {
         </td>
       </tr>
     `;
-
     tableBody.innerHTML += row;
   });
 
@@ -63,11 +60,10 @@ const fetchData = async () => {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
     const data = await response.json();
-
+    
     const apiStudent = new Student(data.name, 22);
     students.push(apiStudent);
     updateDisplay();
-
   } catch (error) {
     console.error("Fetch error:", error);
   }
@@ -76,15 +72,12 @@ const fetchData = async () => {
 fetchBtn.addEventListener("click", fetchData);
 
 const syncJSON = () => {
-  document.getElementById("dataPreview").textContent =
-    JSON.stringify(students, null, 2);
+  document.getElementById("dataPreview").textContent = JSON.stringify(students, null, 2);
 };
 
 toggleBtn.addEventListener("click", () => {
   const panel = document.getElementById("dataPreview");
-
-  panel.style.display =
-    panel.style.display === "block" ? "none" : "block";
+  panel.style.display = panel.style.display === "block" ? "none" : "block";
 });
 
 const clearForm = () => {
